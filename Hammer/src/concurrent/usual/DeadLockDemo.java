@@ -1,4 +1,4 @@
-package concurrent.deadlockdemo;
+package concurrent.usual;
 
 public class DeadLockDemo {
 	private static String A = "A";
