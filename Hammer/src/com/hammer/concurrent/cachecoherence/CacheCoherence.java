@@ -1,4 +1,4 @@
-package concurrent.cachecoherence;
+package com.hammer.concurrent.cachecoherence;
 
 public class CacheCoherence {
 

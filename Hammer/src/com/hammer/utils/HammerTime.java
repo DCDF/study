@@ -1,4 +1,4 @@
-package utils;
+package com.hammer.utils;
 
 import java.time.LocalDateTime;
 

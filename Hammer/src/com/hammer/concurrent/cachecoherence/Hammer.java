@@ -1,4 +1,4 @@
-package concurrent.cachecoherence;
+package com.hammer.concurrent.cachecoherence;
 
 public class Hammer extends Thread {
 	private boolean flag = false;
