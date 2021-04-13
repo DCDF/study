@@ -12,6 +12,7 @@ public class EnergySource {
 
 	// 周期性任务的优雅解决方案
 	//多个实例共用这个线程池,因为任务轻10个线程数量的小池子就够了
+	
 	private static final ScheduledExecutorService replenishTimer = Executors.newScheduledThreadPool(10);
 
 	private ScheduledFuture<?> replenishTask;
