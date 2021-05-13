@@ -1,6 +1,7 @@
 package com.hammer.arr;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class MyArrUtil {
@@ -9,8 +10,14 @@ public class MyArrUtil {
 //		obj.findDiagonalOrder(new int[][] { new int[] { 1 }, new int[] { 2 }, new int[] { 3 }, new int[] { 4 }, new int[] { 5 }, new int[] { 6 }, new int[] { 7 }, new int[] { 8 }, new int[] { 9 }, new int[] { 10 } });
 //		obj.longestPalindrome("dfkhddghaba");
 //		obj.reverseWords(" lost river one two three");
-		int result = obj.strStr("hello", "ll");
-		System.out.println(result);
+//		int result = obj.strStr("hello", "ll");
+//		char[] c = new char[] { 'h', 'a', 'm', 'm', 'e', 'r' };
+//		obj.reverseString(c);
+//		obj.arrayPairSum(new int[] { 1, 4, 3, 2 });
+//		obj.twoSum(new int[] { 2, 7, 11, 15 }, 9);
+//		System.out.println(obj.removeElement(new int[] { 3, 2, 2, 3 }, 3));
+//		obj.minSubArrayLen(11, new int[] { 1, 2, 3, 4, 5 });
+		obj.minSubArrayLen(7, new int[] { 2, 3, 1, 2, 4, 3 });
 	}
 
 	// 对角线遍历
@@ -271,5 +278,112 @@ public class MyArrUtil {
 			}
 		}
 		return -1;
+	}
+
+	// 双指针翻转字符串
+	public void reverseString(char[] s) {
+		if (s.length <= 1) {
+			return;
+		}
+		int left = 0;
+		int right = s.length - 1;
+		boolean ou = s.length % 2 == 0 ? true : false;
+		for (int i = 0; i < s.length; i++) {
+			char k = s[right];
+			s[right] = s[left];
+			s[left] = k;
+			int next = left + 1;
+			if (ou) {
+				if (next == right) {
+					break;
+				}
+			} else {
+				if (next == right - 1) {
+					break;
+				}
+			}
+			left++;
+			right--;
+		}
+	}
+
+	public int arrayPairSum(int[] nums) {
+		if (nums.length == 0) {
+			return 0;
+		}
+		if (nums.length % 2 != 0) {
+			return 0;
+		}
+		Arrays.sort(nums);
+		int count = 0;
+		for (int i = 0; i < nums.length; i += 2) {
+			count += nums[i];
+		}
+		return count;
+	}
+
+	// 双指针两数之和
+	public int[] twoSum(int[] numbers, int target) {
+
+		int leftIndex = 0;
+		int rightIndex = numbers.length - 1;
+		for (int i = 0; i < numbers.length; i++) {
+			int num = numbers[leftIndex] + numbers[rightIndex];
+			if (num == target) {
+				return new int[] { ++leftIndex, ++rightIndex };
+			}
+			if (leftIndex + 1 == rightIndex) {
+				break;
+			}
+			if (num > target) {
+				rightIndex--;
+			} else {
+				leftIndex++;
+			}
+		}
+		return new int[] { 0, 0 };
+	}
+
+	// 双指针快慢指针删除元素
+	public int removeElement(int[] nums, int val) {
+		if (nums.length == 0) {
+			return 0;
+		}
+		int slow = 0;
+		for (int i = 0; i < nums.length; i++) {
+			if (nums[i] != val) {
+				nums[slow++] = nums[i];
+			}
+		}
+		return slow;
+	}
+
+	// 最大连续1的个数
+	public int findMaxConsecutiveOnes(int[] nums) {
+
+		int count = 0;
+		int tmp = 0;
+		for (int i = 0; i < nums.length; i++) {
+			if (nums[i] == 0) {
+				tmp = 0;
+			} else {
+				tmp++;
+				if (tmp > count) {
+					count = tmp;
+				}
+			}
+		}
+		return count;
+	}
+
+	//
+	public int minSubArrayLen(int target, int[] nums) {
+		int min = 0;
+
+		int slow = 0;
+		int fast = 0;
+		
+		
+		return min;
 	}
 }
