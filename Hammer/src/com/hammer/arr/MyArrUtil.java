@@ -17,7 +17,9 @@ public class MyArrUtil {
 //		obj.twoSum(new int[] { 2, 7, 11, 15 }, 9);
 //		System.out.println(obj.removeElement(new int[] { 3, 2, 2, 3 }, 3));
 //		obj.minSubArrayLen(11, new int[] { 1, 2, 3, 4, 5 });
-		obj.minSubArrayLen(7, new int[] { 2, 3, 1, 2, 4, 3 });
+//		obj.minSubArrayLen(7, new int[] { 2, 3, 1, 2, 4, 3 });
+//		obj.generate(5);
+		System.out.println(obj.reverseWordsTwo("i love u"));
 	}
 
 	// 对角线遍历
@@ -376,14 +378,134 @@ public class MyArrUtil {
 		return count;
 	}
 
-	//
+	// 长度最小的子数组
 	public int minSubArrayLen(int target, int[] nums) {
 		int min = 0;
 
 		int slow = 0;
 		int fast = 0;
-		
-		
+
+		int value = 0;
+		for (int i = 0; i < Integer.MAX_VALUE; i++) {
+
+			if (i == 0) {
+				value += nums[slow];
+			}
+			if (value >= target) {
+
+				int curLen = fast - slow + 1;
+				for (int j = slow; j <= fast; j++) {
+					value -= nums[j];
+					slow++;
+					if (value < target) {
+						break;
+					} else {
+						curLen--;
+					}
+				}
+				if (min == 0) {
+					min = curLen;
+				} else if (curLen < min) {
+					min = curLen;
+				}
+			}
+			if (fast == nums.length - 1) {
+				return min;
+			}
+			fast++;
+			value += nums[fast];
+		}
 		return min;
+	}
+
+	// 杨辉三角
+	public List<List<Integer>> generate(int numRows) {
+
+		List<List<Integer>> list = new ArrayList<>();
+		for (int i = 0; i < numRows; i++) {
+
+			List<Integer> l1 = new ArrayList<>();
+
+			int num = 1;
+
+			if (i > 1) {
+				for (int j = 0; j <= i; j++) {
+					int value = 0;
+					if (j - 1 >= 0 && j <= i - 1) {
+						List<Integer> preList = list.get(i - 1);
+						value += preList.get(j - 1);
+						value += preList.get(j);
+					} else {
+						value = 1;
+					}
+					l1.add(value);
+				}
+			} else {
+				for (int j = 0; j <= i; j++) {
+					l1.add(num);
+				}
+			}
+			list.add(l1);
+		}
+
+		return list;
+	}
+
+	public List<Integer> getRow(int rowIndex) {
+
+		List<List<Integer>> list = new ArrayList<>();
+		for (int i = 0; i <= rowIndex; i++) {
+
+			List<Integer> l1 = new ArrayList<>();
+
+			int num = 1;
+
+			if (i > 1) {
+				for (int j = 0; j <= i; j++) {
+					int value = 0;
+					if (j - 1 >= 0 && j <= i - 1) {
+						List<Integer> preList = list.get(i - 1);
+						value += preList.get(j - 1);
+						value += preList.get(j);
+					} else {
+						value = 1;
+					}
+					l1.add(value);
+				}
+			} else {
+				for (int j = 0; j <= i; j++) {
+					l1.add(num);
+				}
+			}
+			list.add(l1);
+		}
+
+		return list.get(rowIndex);
+	}
+
+	public String reverseWordsTwo(String s) {
+		char[] arr1 = s.toCharArray();
+
+		StringBuilder sb = new StringBuilder();
+		int count = 0;
+		for (int i = 0; i < arr1.length; i++) {
+			if (arr1[i] == ' ' || i == arr1.length - 1) {
+				int first = i == arr1.length - 1 ? 0 : 1;
+				if (count != 0 || first == 0) {
+					if (!sb.toString().equals("")) {
+						sb.append(" ");
+					}
+					for (int j = first; j <= count; j++) {
+						sb.append(arr1[i - j]);
+					}
+				}
+				count = 0;
+			} else {
+
+				count++;
+			}
+
+		}
+		return sb.toString();
 	}
 }
