@@ -19,7 +19,8 @@ public class MyArrUtil {
 //		obj.minSubArrayLen(11, new int[] { 1, 2, 3, 4, 5 });
 //		obj.minSubArrayLen(7, new int[] { 2, 3, 1, 2, 4, 3 });
 //		obj.generate(5);
-		System.out.println(obj.reverseWordsTwo("i love u"));
+//		System.out.println(obj.reverseWordsTwo("i love u"));
+		obj.moveZeroes(new int[] { 0, 1, 0, 3, 12 });
 	}
 
 	// 对角线遍历
@@ -507,5 +508,60 @@ public class MyArrUtil {
 
 		}
 		return sb.toString();
+	}
+
+	public int findMin(int[] nums) {
+		if (nums.length == 1) {
+			return nums[0];
+		}
+		for (int i = 0; i < nums.length; i++) {
+			if (i + 1 > nums.length - 1) {
+				return nums[0];
+			}
+			if (nums[i + 1] < nums[i]) {
+				return nums[i + 1];
+			}
+		}
+		return 0;
+	}
+
+	// 删除重复项
+	public int removeDuplicates(int[] nums) {
+
+		if (nums.length == 0) {
+			return 0;
+		}
+		int slow = 0;
+
+		for (int i = 0; i < nums.length; i++) {
+			if (i != 0) {
+				if (nums[i] == nums[i - 1]) {
+					continue;
+				} else {
+					slow++;
+				}
+			}
+			nums[slow] = nums[i];
+		}
+		return slow + 1;
+	}
+
+	//移动零
+	public void moveZeroes(int[] nums) {
+
+		if (nums.length <= 1) {
+			return;
+		}
+
+		//慢指针不动,快指针遇到非0则将数据替换到慢指针位置
+		int slow = 0;
+		for (int fast = 0; fast < nums.length; fast++) {
+			if (nums[fast] != 0) {
+				int k = nums[fast];
+				nums[fast] = nums[slow];
+				nums[slow] = k;
+				slow++;
+			}
+		}
 	}
 }
